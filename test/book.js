@@ -10,7 +10,6 @@ let chaiHttp = require('chai-http');
 let server = require('../server');
 let should = chai.should();
 
-
 chai.use(chaiHttp);
 
 //Our parent block
@@ -26,13 +25,13 @@ describe('Books', () => {
   describe('/GET book', () => {
 	  it('it should GET all the books', (done) => {
 			chai.request(server)
-		    .get('/book')
-		    .end((err, res) => {
-			  	res.should.have.status(200);
-			  	res.body.should.be.a('array');
-			  	res.body.length.should.be.eql(0);
-		      done();
-		    });
+			.get('/book')
+			.end((err, res) => {
+				res.should.have.status(200);
+				res.body.should.be.a('array');
+				res.body.length.should.be.eql(0);
+				done();
+			});
 	  });
   });
  /*
@@ -46,16 +45,16 @@ describe('Books', () => {
 	  		year: 1954
 	  	}
 			chai.request(server)
-		    .post('/book')
-		    .send(book)
-		    .end((err, res) => {
-			  	res.should.have.status(200);
-			  	res.body.should.be.a('object');
-			  	res.body.should.have.property('errors');
-			  	res.body.errors.should.have.property('pages');
-			  	res.body.errors.pages.should.have.property('kind').eql('required');
-		      done();
-		    });
+			.post('/book')
+			.send(book)
+			.end((err, res) => {
+				res.should.have.status(200);
+				res.body.should.be.a('object');
+				res.body.should.have.property('errors');
+				res.body.errors.should.have.property('pages');
+				res.body.errors.pages.should.have.property('kind').eql('required');
+				done();
+			});
 	  });
 	  it('it should POST a book ', (done) => {
 	  	let book = {
@@ -65,18 +64,18 @@ describe('Books', () => {
 	  		pages: 1170
 	  	}
 			chai.request(server)
-		    .post('/book')
-		    .send(book)
-		    .end((err, res) => {
-			  	res.should.have.status(200);
-			  	res.body.should.be.a('object');
-			  	res.body.should.have.property('message').eql('Book successfully added!');
-			  	res.body.book.should.have.property('title');
-			  	res.body.book.should.have.property('author');
-			  	res.body.book.should.have.property('pages');
-			  	res.body.book.should.have.property('year');
-		      done();
-		    });
+			.post('/book')
+			.send(book)
+			.end((err, res) => {
+				res.should.have.status(200);
+				res.body.should.be.a('object');
+				res.body.should.have.property('message').eql('Book successfully added!');
+				res.body.book.should.have.property('title');
+				res.body.book.should.have.property('author');
+				res.body.book.should.have.property('pages');
+				res.body.book.should.have.property('year');
+				done();
+			});
 	  });
   });
  /*
@@ -100,7 +99,6 @@ describe('Books', () => {
 		      done();
 		    });
 	  	});
-			
 	  });
   });
  /*
@@ -111,15 +109,15 @@ describe('Books', () => {
 	  	let book = new Book({title: "The Chronicles of Narnia", author: "C.S. Lewis", year: 1948, pages: 778})
 	  	book.save((err, book) => {
 				chai.request(server)
-			    .put('/book/' + book.id)
-			    .send({title: "The Chronicles of Narnia", author: "C.S. Lewis", year: 1950, pages: 778})
-			    .end((err, res) => {
-				  	res.should.have.status(200);
-				  	res.body.should.be.a('object');
-				  	res.body.should.have.property('message').eql('Book updated!');
-				  	res.body.book.should.have.property('year').eql(1950);
-			      done();
-			    });
+				.put('/book/' + book.id)
+				.send({title: "The Chronicles of Narnia", author: "C.S. Lewis", year: 1950, pages: 778})
+				.end((err, res) => {
+					res.should.have.status(200);
+					res.body.should.be.a('object');
+					res.body.should.have.property('message').eql('Book updated!');
+					res.body.book.should.have.property('year').eql(1950);
+					done();
+				});
 		  });
 	  });
   });
@@ -131,15 +129,15 @@ describe('Books', () => {
 	  	let book = new Book({title: "The Chronicles of Narnia", author: "C.S. Lewis", year: 1948, pages: 778})
 	  	book.save((err, book) => {
 				chai.request(server)
-			    .delete('/book/' + book.id)
-			    .end((err, res) => {
-				  	res.should.have.status(200);
-				  	res.body.should.be.a('object');
-				  	res.body.should.have.property('message').eql('Book successfully deleted!');
-				  	res.body.result.should.have.property('ok').eql(1);
-				  	res.body.result.should.have.property('n').eql(1);
-			      done();
-			    });
+				.delete('/book/' + book.id)
+				.end((err, res) => {
+					res.should.have.status(200);
+					res.body.should.be.a('object');
+					res.body.should.have.property('message').eql('Book successfully deleted!');
+					res.body.result.should.have.property('ok').eql(1);
+					res.body.result.should.have.property('n').eql(1);
+					done();
+				});
 		  });
 	  });
   });

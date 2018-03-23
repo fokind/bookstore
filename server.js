@@ -9,9 +9,9 @@ let book = require('./app/routes/book');
 let config = require('config'); //we load the db location from the JSON files
 //db options
 let options = { 
-				server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
-                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } 
-              }; 
+	server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
+	replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } 
+};
 
 //db connection      
 mongoose.connect(config.DBHost, options);
@@ -33,13 +33,13 @@ app.use(bodyParser.json({ type: 'application/json'}));
 app.get("/", (req, res) => res.json({message: "Welcome to our Bookstore!"}));
 
 app.route("/book")
-	.get(book.getBooks)
-	.post(book.postBook);
-app.route("/book/:id")
-	.get(book.getBook)
-	.delete(book.deleteBook)
-	.put(book.updateBook);
+.get(book.getBooks)
+.post(book.postBook);
 
+app.route("/book/:id")
+.get(book.getBook)
+.delete(book.deleteBook)
+.put(book.updateBook);
 
 app.listen(port);
 console.log("Listening on port " + port);
